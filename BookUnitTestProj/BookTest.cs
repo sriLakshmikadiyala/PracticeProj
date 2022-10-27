@@ -23,9 +23,8 @@ namespace BookUnitTestProj
         {
             _bookRepoMock = new Mock<IBookRepo>();
         }
-       
         [Fact]
-        public void GetAllBooksReturnOk()
+        public void GetAllBooksShouldReturnOk()
         {
             //Arrange
             var list=GetBooksData();
@@ -74,12 +73,11 @@ namespace BookUnitTestProj
             Assert.Equal(book.Name, books?.Name);
             Assert.Equal(book.Id, books?.Id);
             Assert.Equal(book.AuthorName, books?.AuthorName);
-
         }
         [Fact]
         public void AddBookShouldReturnBadRequest()
         {
-
+            //Arrange
             var book = new Books();
             book = null;
             _bookRepoMock.Setup(x => x.AddBook(book));
@@ -87,12 +85,12 @@ namespace BookUnitTestProj
             //Act
             var res = controller.AddBook(book);
             //Assert
-            Assert.IsType<BadRequestResult>(res);
-            
+            Assert.IsType<BadRequestResult>(res);        
         }
         [Fact]
         public void GetBooksByIdReturnOk()
         {
+            //Arrange
             var list = GetBooksData();
             int id = 1;
             _bookRepoMock.Setup(x => x.GetBook(id)).Returns(list[0]);
@@ -108,6 +106,7 @@ namespace BookUnitTestProj
         [Fact]
         public void GetBookByIdShouldReturnNotFound()
         {
+            //Arrange
             var list = GetBooksData();
             int id = 2;
             _bookRepoMock.Setup(x => x.GetBook(id));

@@ -7,5 +7,6 @@ namespace PracticeProj.Repository
         Books AddBook(Books books);
         List<Books> GetAllBooks();
         Books GetBook(int id);
+        Books UpdateBook(Books book);
     }
 }

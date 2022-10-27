@@ -8,7 +8,7 @@ namespace PracticeProj.BookDbContext
         public BooksDbContext(DbContextOptions<BooksDbContext> dbContext) : base(dbContext)
         {
         }
-        public DbSet<Books> books { get; set; } = null!;
+        public DbSet<Books> books { get; set; } 
     }
 
 }

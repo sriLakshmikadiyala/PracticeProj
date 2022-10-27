@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PracticeProj.BookDbContext;
+﻿using Microsoft.AspNetCore.Mvc;
 using PracticeProj.Models;
 using PracticeProj.Repository;
 
@@ -15,41 +12,48 @@ namespace PracticeProj.Controllers
         public BooksController(IBookRepo repo)
         {
             bookRepo = repo;
-
         }
+        /// <summary>
+        /// Returns List of all Books 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetBooks")]
         public IActionResult GetBooks()
         {
-            if (bookRepo.GetAllBooks().Count()==0)
-            {
-                return NotFound("Book List not found");
-            }
             var res = bookRepo.GetAllBooks();
-            return Ok(res);
+            return res.Count() == 0 ? NotFound("Book List not found") : Ok(res);
         }
+        /// <summary>
+        /// Return Book by Input Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetBooksById(int id)
         {
             var res = bookRepo.GetBook(id);
-            if(res==null)
-            {
-                return NotFound("Book Not found for this Id");
-
-            }
-            return Ok(res);
-
+            return res == null ? NotFound("Book Not found for this Id") : Ok(res);
         }
+        /// <summary>
+        /// Returns Book
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult AddBook([FromBody] Books book)
         {
-            if(book == null)
-            {
-                return BadRequest();
-            }
-            var res = bookRepo.AddBook(book);
-            return Ok(res);
+            return book == null ? BadRequest() : Ok(bookRepo.AddBook(book));
         }
-
+        /// <summary>
+        /// Update Book 
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public IActionResult Update(Books book)
+        {
+            return book==null? BadRequest():Ok(bookRepo.UpdateBook(book));
+        }
     }
 }

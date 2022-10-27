@@ -12,22 +12,54 @@ namespace PracticeProj.Repository
         }
         public Books AddBook(Books books)
         {
-            bookDb.books.Add(books);
-            bookDb.SaveChanges();
-            return books;
-            
+            try
+            {
+                bookDb.books.Add(books);
+                bookDb.SaveChanges();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public List<Books> GetAllBooks()
         {
-            
-            return bookDb.books.ToList();
-            
+            try
+            {
+                return bookDb.books.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Books GetBook(int id)
         {
-            var book = bookDb.books.FirstOrDefault(x => x.Id == id);
-           
-            return  book;
+            try
+            {
+                var book = bookDb.books.FirstOrDefault(x => x.Id == id);
+                return book;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public Books UpdateBook(Books books)
+        {
+            try
+            {
+                var book = bookDb.books.FirstOrDefault(x => x.Name == books.Name);
+                book.AuthorName = books.AuthorName;
+                bookDb.books.Update(book);
+                bookDb.SaveChanges();
+                return bookDb.books.FirstOrDefault(x => x.Name == books.Name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

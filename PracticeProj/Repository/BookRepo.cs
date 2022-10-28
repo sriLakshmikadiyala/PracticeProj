@@ -50,7 +50,8 @@ namespace PracticeProj.Repository
         {
             try
             {
-                var book = bookDb.books.FirstOrDefault(x => x.Name == books.Name);
+                var book = bookDb.books.FirstOrDefault(x => x.Id== books.Id);
+                book.Name=books.Name
                 book.AuthorName = books.AuthorName;
                 bookDb.books.Update(book);
                 bookDb.SaveChanges();

@@ -55,7 +55,7 @@ namespace PracticeProj.Repository
                 book.AuthorName = books.AuthorName;
                 bookDb.books.Update(book);
                 bookDb.SaveChanges();
-                return bookDb.books.FirstOrDefault(x => x.Name == books.Name);
+                return bookDb.books.FirstOrDefault(x => x.Id == books.Id);
             }
             catch (Exception ex)
             {
